@@ -7,3 +7,9 @@ spring:
           model: qwen-max             # 默认使用 qwen-max
           temperature: 0.7
           max-tokens: 2048
+    retry:
+      max-attempts: 20       # 最大重试次数默认 10，图片生成慢时不够用
+      backoff:
+        initial-interval: 3s # 首次轮询等待时间
+        multiplier: 2        # 退避乘数，每次重试后等待时间 = 上次 × 2
+        max-interval: 15s    # 最大轮询间隔

@@ -1,15 +1,34 @@
+#spring:
+#  ai:
+#    dashscope:
+#      api-key: ${DASHSCOPE_API_KEY}   # 从环境变量读取
+#      chat:
+#        options:
+#          model: qwen-max             # 默认使用 qwen-max
+#          temperature: 0.7
+#          max-tokens: 2048
+#    retry:
+#      max-attempts: 20       # 最大重试次数默认 10，图片生成慢时不够用
+#      backoff:
+#        initial-interval: 3s # 首次轮询等待时间
+#        multiplier: 2        # 退避乘数，每次重试后等待时间 = 上次 × 2
+#        max-interval: 15s    # 最大轮询间隔
+
+
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vectordb
+    username: postgres
+    password: 123456
   ai:
     dashscope:
-      api-key: ${DASHSCOPE_API_KEY}   # 从环境变量读取
-      chat:
+      api-key: ${DASHSCOPE_API_KEY}
+      embedding:
         options:
-          model: qwen-max             # 默认使用 qwen-max
-          temperature: 0.7
-          max-tokens: 2048
-    retry:
-      max-attempts: 20       # 最大重试次数默认 10，图片生成慢时不够用
-      backoff:
-        initial-interval: 3s # 首次轮询等待时间
-        multiplier: 2        # 退避乘数，每次重试后等待时间 = 上次 × 2
-        max-interval: 15s    # 最大轮询间隔
+          model: text-embedding-v3  # 通义 Embedding 模型
+    vectorstore:
+      pgvector:
+        initialize-schema: true          # 自动建向量表，第一次启动后可关掉
+        index-type: HNSW                 # HNSW 索引，查询速度快
+        distance-type: COSINE_DISTANCE   # 余弦相似度
+        dimensions: 1024                 # text-embedding-v3 的向量维度是 1024，别填错，填错了报错很难排查

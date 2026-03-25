@@ -1,4 +1,4 @@
-package com.liguoxian.springai_alibaba.controller;
+package com.liguoxian.springai_alibaba.controller.LEARN;
 
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;

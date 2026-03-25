@@ -1,7 +1,6 @@
-package com.liguoxian.springai_alibaba.controller;
+package com.liguoxian.springai_alibaba.controller.LEARN;
 
 import com.alibaba.cloud.ai.dashscope.image.DashScopeImageOptions;
-import com.alibaba.cloud.ai.dashscope.spec.DashScopeModel;
 import org.springframework.ai.image.ImageModel;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;

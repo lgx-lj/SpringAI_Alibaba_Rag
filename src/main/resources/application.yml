@@ -16,6 +16,10 @@
 
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   datasource:
     url: jdbc:postgresql://localhost:5432/vectordb
     username: postgres
@@ -23,9 +27,19 @@ spring:
   ai:
     dashscope:
       api-key: ${DASHSCOPE_API_KEY}
+      chat:
+        options:
+          model: qwen-turbo  # 使用更快的模型，或保持 qwen-max
+        # 超时配置（关键）
       embedding:
         options:
           model: text-embedding-v3  # 通义 Embedding 模型
+
+# 全局 HTTP 客户端超时配置
+rest:
+  client:
+    connect-timeout: 30s
+    read-timeout: 120s  # AI 响应可能需要较长时间
     vectorstore:
       pgvector:
         initialize-schema: true          # 自动建向量表，第一次启动后可关掉

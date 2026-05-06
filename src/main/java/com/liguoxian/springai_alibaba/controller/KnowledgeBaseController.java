@@ -1,6 +1,8 @@
 package com.liguoxian.springai_alibaba.controller;
 
 import com.liguoxian.springai_alibaba.service.DocumentIngestionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -17,6 +19,8 @@ import java.util.Map;
 @RequestMapping("/api/knowledge")
 public class KnowledgeBaseController {
 
+    private static final Logger log = LoggerFactory.getLogger(KnowledgeBaseController.class);
+
     private final DocumentIngestionService ingestionService;
     private final VectorStore vectorStore;
 
@@ -30,6 +34,8 @@ public class KnowledgeBaseController {
     public Map<String, Object> uploadDocument(
             @RequestParam("file") MultipartFile file,
             @RequestParam(defaultValue = "通用") String category) throws Exception {
+
+        log.info("收到上传请求，文件名: {}, 大小: {} bytes", file.getOriginalFilename(), file.getSize());
 
         String filename = file.getOriginalFilename();
         // MultipartFile 不支持随机访问，PDF 解析器需要可寻址的文件，先存临时文件
